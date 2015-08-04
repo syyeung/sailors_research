@@ -1,5 +1,5 @@
 import numpy as np
-import skimage
+from skimage import io
 
 class ThresholdModel:
 
