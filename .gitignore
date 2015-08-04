@@ -1,1 +1,3 @@
-.venv/
+.*
+*.pyc
+src/proj1_sol/
