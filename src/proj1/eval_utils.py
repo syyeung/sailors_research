@@ -12,16 +12,33 @@ def evaluate_accuracy(filelist, labels, model):
   """
   num_images = len(filelist)
   num_correct = 0
+  num_true_pos = 0
+  num_pos_preds = 0
+  num_pos_labels = 0
+  num_pos_labels = 0
   predictions = []
+  scores = []
   for img_idx in xrange(num_images):
     image_file = filelist[img_idx]
     image_label = labels[img_idx]
-    image_prediction = model.predict(image_file)
+    image_prediction, image_score = model.predict(image_file)
     predictions.append(image_prediction)
-    if (image_label == image_prediction):
-      num_correct += 1
+    scores.append(image_score)
+    correct = (image_label == image_prediction)
+    if correct:
+        num_correct += 1
+    if (correct and image_label == 1):
+        num_true_pos += 1
+    if (image_prediction == 1):
+        num_pos_preds += 1
+    if (image_label == 1):
+        num_pos_labels += 1
+
   accuracy = float(num_correct) / num_images
-  return predictions, accuracy
+  precision = float(num_true_pos) / (num_pos_preds + 1e-12)
+  recall = float(num_true_pos) / (num_pos_labels + 1e-12)
+  fscore = (2*precision*recall) / (precision + recall + 1e-12)
+  return predictions, scores, accuracy, precision, recall, fscore
 
 
 
