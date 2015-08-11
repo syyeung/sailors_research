@@ -1,5 +1,5 @@
-labels_csv = '../../data/train/labels.csv'
-labels_txt = '../../data/train/labels.txt'
+labels_csv = '../../data/test/labels.csv'
+labels_txt = '../../data/test/labels.txt'
 
 with open(labels_csv) as f:
   data = f.read().strip().split('\n')
